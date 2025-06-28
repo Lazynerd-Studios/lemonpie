@@ -3,13 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Film, Star, Users, TrendingUp, Calendar, Award } from "lucide-react";
+import { Search, Menu, X, Film, Star, Users, TrendingUp, Calendar, Award, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Home", href: "/", icon: Film },
   { name: "Movies", href: "/movies", icon: Film },
   { name: "Top Rated", href: "/top-rated", icon: Award },
   { name: "Coming Soon", href: "/coming-soon", icon: Calendar },
@@ -110,9 +108,13 @@ export function Navigation() {
             <Search className="h-5 w-5" />
             <span className="sr-only">Search</span>
           </Button>
-          <ThemeToggle />
+          <Button variant="ghost" size="sm" className="font-medium">
+            <LogIn className="mr-2 h-4 w-4" />
+            Login
+          </Button>
           <Button variant="gradient" size="sm" className="font-semibold">
-            Join Community
+            <UserPlus className="mr-2 h-4 w-4" />
+            Register
           </Button>
         </div>
       </nav>
@@ -160,20 +162,24 @@ export function Navigation() {
                   Search Movies & Actors
                 </Button>
                 
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-muted-foreground">
-                    Dark Mode
-                  </span>
-                  <ThemeToggle />
+                <div className="flex gap-2">
+                  <Button 
+                    variant="ghost" 
+                    className="flex-1"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Login
+                  </Button>
+                  <Button 
+                    variant="gradient" 
+                    className="flex-1"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    Register
+                  </Button>
                 </div>
-                
-                <Button 
-                  variant="gradient" 
-                  className="w-full font-semibold"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Join Community
-                </Button>
               </div>
             </div>
           </div>
