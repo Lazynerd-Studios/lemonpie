@@ -1,26 +1,14 @@
 import * as React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { 
   Play, 
-  Star, 
-  Users, 
-  Calendar,
-  TrendingUp,
-  Award,
-  Heart,
-  Plus,
-  Info,
-  ChevronRight,
-  ChevronLeft,
-  Clock,
-  Fire
+  Star,
+  ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MovieCard } from "@/components/movie/movie-card";
 import { TrendingActorsCarousel } from "@/components/ui/trending-actors-carousel";
+import { MovieCarousel } from "@/components/ui/movie-carousel";
 
 // Mock data for the enhanced homepage
 const heroMovie = {
@@ -126,7 +114,7 @@ const releasingSoon = [
     releaseDate: "2024-06-05",
     genre: ["Thriller", "Drama"],
     director: "Stephanie Okereke",
-    description: "Ambition and corruption in Nigeria's corporate world.",
+    description: "Ambition and corruption in Nigeria&apos;s corporate world.",
     anticipation: 83,
   },
 ];
@@ -194,11 +182,119 @@ const topRatedMovies = [
   },
 ];
 
+const topLemons = [
+  {
+    id: "lemon-1",
+    title: "Merry Men 2",
+    poster: "/api/placeholder/movie/Merry Men 2/300x450",
+    rating: 3.2,
+    year: 2019,
+    genre: ["Comedy", "Action"],
+    reason: "Poor plot execution and forced comedy",
+  },
+  {
+    id: "lemon-2", 
+    title: "Ghost and the Tout",
+    poster: "/api/placeholder/movie/Ghost and the Tout/300x450",
+    rating: 2.8,
+    year: 2018,
+    genre: ["Comedy", "Fantasy"],
+    reason: "Weak storyline and poor visual effects",
+  },
+  {
+    id: "lemon-3",
+    title: "My Village People",
+    poster: "/api/placeholder/movie/My Village People/300x450",
+    rating: 4.1,
+    year: 2021,
+    genre: ["Comedy", "Fantasy"],
+    reason: "Overly stereotypical and lacks depth",
+  },
+  {
+    id: "lemon-4",
+    title: "Crazy People",
+    poster: "/api/placeholder/movie/Crazy People/300x450",
+    rating: 3.5,
+    year: 2018,
+    genre: ["Comedy"],
+    reason: "Predictable humor and weak character development",
+  },
+  {
+    id: "lemon-5",
+    title: "The Grudge",
+    poster: "/api/placeholder/movie/The Grudge/300x450",
+    rating: 2.9,
+    year: 2020,
+    genre: ["Horror"],
+    reason: "Failed horror attempt with poor execution",
+  },
+  {
+    id: "lemon-6",
+    title: "Area Boys",
+    poster: "/api/placeholder/movie/Area Boys/300x450",
+    rating: 3.8,
+    year: 2019,
+    genre: ["Action"],
+    reason: "Clichéd storyline and weak character development",
+  },
+];
+
+const nowInCinemas = [
+  {
+    id: "jagun-jagun",
+    title: "Jagun Jagun",
+    poster: "/api/placeholder/movie/Jagun Jagun/300x450",
+    rating: 8.9,
+    year: 2024,
+    genre: ["Action", "Drama", "Historical"],
+  },
+  {
+    id: "extraction-2",
+    title: "A Tribe Called Judah",
+    poster: "/api/placeholder/movie/A Tribe Called Judah/300x450",
+    rating: 8.3,
+    year: 2024,
+    genre: ["Comedy", "Drama"],
+  },
+  {
+    id: "the-origin",
+    title: "The Origin: Madam Koi Koi",
+    poster: "/api/placeholder/movie/The Origin Madam Koi Koi/300x450",
+    rating: 7.8,
+    year: 2024,
+    genre: ["Horror", "Thriller"],
+  },
+  {
+    id: "merry-men-3",
+    title: "Merry Men 3: Nemesis",
+    poster: "/api/placeholder/movie/Merry Men 3 Nemesis/300x450",
+    rating: 7.5,
+    year: 2024,
+    genre: ["Action", "Comedy"],
+  },
+  {
+    id: "progressive-tailors",
+    title: "Progressive Tailors Club",
+    poster: "/api/placeholder/movie/Progressive Tailors Club/300x450",
+    rating: 8.1,
+    year: 2024,
+    genre: ["Comedy", "Drama"],
+  },
+  {
+    id: "heavy-object",
+    title: "Heavy Object",
+    poster: "/api/placeholder/movie/Heavy Object/300x450",
+    rating: 7.9,
+    year: 2024,
+    genre: ["Action", "Thriller"],
+  },
+];
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Cinematic Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      {/* Cinematic Hero Section - Reduced Height */}
+      <section className="relative h-[80vh] overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={heroMovie.backdrop}
@@ -247,18 +343,21 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-4">
                 <Button size="lg" className="gradient-bg-primary text-lg px-8 py-4">
                   <Play className="mr-3 h-6 w-6" />
-                  Watch Now
-                </Button>
-                <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-white/30 text-white hover:bg-white/10">
-                  <Info className="mr-3 h-6 w-6" />
-                  More Info
-                </Button>
-                <Button variant="outline" size="lg" className="text-lg px-6 py-4 border-white/30 text-white hover:bg-white/10">
-                  <Plus className="h-6 w-6" />
+                  Trailer
                 </Button>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Now in Cinemas Section */}
+      <section className="py-20 bg-background">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <MovieCarousel 
+            movies={nowInCinemas}
+            title="Now in Cinemas"
+          />
         </div>
       </section>
 
@@ -282,201 +381,60 @@ export default function HomePage() {
       {/* Releasing Soon Section */}
       <section className="py-20 bg-muted/30">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="mb-12 flex items-center justify-between">
-            <div className="space-y-2">
-              <h2 className="text-4xl font-bold gradient-text-gold">
-                Coming Soon
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                Most anticipated Nollywood releases
-              </p>
-            </div>
-            <Button variant="ghost" size="lg" asChild>
-              <Link href="/coming-soon">
-                View Calendar
-                <Calendar className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {releasingSoon.map((movie) => (
-              <Card key={movie.id} className="cinema-card group cursor-pointer">
-                <CardContent className="p-0">
-                  <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg">
-                    <Image
-                      src={movie.poster}
-                      alt={movie.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="warning" className="text-xs font-bold">
-                        <Clock className="mr-1 h-3 w-3" />
-                        {new Date(movie.releaseDate).toLocaleDateString()}
-                      </Badge>
-                    </div>
-                    <div className="absolute top-3 right-3">
-                      <div className="bg-black/80 rounded-full p-2">
-                        <div className="text-xs text-nollywood-gold font-bold">
-                          {movie.anticipation}%
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 space-y-3">
-                    <h3 className="font-bold text-lg text-white group-hover:text-primary transition-colors">
-                      {movie.title}
-                    </h3>
-                    <div className="flex gap-1">
-                      {movie.genre.map((g) => (
-                        <Badge key={g} variant="outline" className="text-xs">
-                          {g}
-                        </Badge>
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground text-sm line-clamp-2">
-                      {movie.description}
-                    </p>
-                    <p className="text-xs text-nollywood-gold font-medium">
-                      Directed by {movie.director}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <MovieCarousel 
+            movies={releasingSoon.map(movie => ({
+              id: movie.id,
+              title: movie.title,
+              poster: movie.poster,
+              rating: movie.anticipation / 10, // Convert percentage to rating
+              year: new Date(movie.releaseDate).getFullYear(),
+              genre: movie.genre,
+            }))}
+            title="Coming Soon"
+          />
         </div>
       </section>
 
       {/* Top Rated Movies Section */}
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="mb-12 flex items-center justify-between">
-            <div className="space-y-2">
-              <h2 className="text-4xl font-bold gradient-text-primary">
-                Top Rated Movies
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                Highest rated Nollywood films of all time
-              </p>
-            </div>
-            <Button variant="ghost" size="lg" asChild>
-              <Link href="/top-rated">
-                View All
-                <TrendingUp className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {topRatedMovies.map((movie, index) => (
-              <Card key={movie.id} className="cinema-card group cursor-pointer relative">
-                <div className="absolute -top-2 -left-2 z-10">
-                  <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center">
-                    <span className="text-white font-bold">#{index + 1}</span>
-                  </div>
-                </div>
-                <CardContent className="p-0">
-                  <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg">
-                    <Image
-                      src={movie.poster}
-                      alt={movie.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="default" className="bg-black/80 text-nollywood-gold border-nollywood-gold">
-                        <Star className="mr-1 h-3 w-3 fill-current" />
-                        {movie.rating}
-                      </Badge>
-                    </div>
-                    {movie.isNollywood && (
-                      <div className="absolute bottom-3 left-3">
-                        <Badge variant="outline" className="bg-nollywood-gold/20 border-nollywood-gold text-nollywood-gold">
-                          Nollywood
-                        </Badge>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4 space-y-3">
-                    <h3 className="font-bold text-lg text-white group-hover:text-primary transition-colors">
-                      {movie.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span>{movie.year}</span>
-                      <span>•</span>
-                      <span>{movie.duration}min</span>
-                    </div>
-                    <div className="flex gap-1">
-                      {movie.genre.slice(0, 2).map((g) => (
-                        <Badge key={g} variant="outline" className="text-xs">
-                          {g}
-                        </Badge>
-                      ))}
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="text-center">
-                        <div className="font-bold text-success">{movie.criticsRating}</div>
-                        <div className="text-muted-foreground">Critics</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-bold text-info">{movie.audienceRating}</div>
-                        <div className="text-muted-foreground">Audience</div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <MovieCarousel 
+            movies={topRatedMovies.map(movie => ({
+              id: movie.id,
+              title: movie.title,
+              poster: movie.poster,
+              rating: movie.rating,
+              year: movie.year,
+              genre: movie.genre,
+            }))}
+            title="Top rated movies"
+          />
         </div>
       </section>
 
-      {/* Call to Action - Enhanced */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 via-lagos-orange/10 to-nollywood-gold/10">
-        <div className="mx-auto max-w-4xl px-4 text-center lg:px-8">
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h2 className="text-4xl md:text-6xl font-bold gradient-text-primary">
-                Join Nigeria's Premier
-                <br />Movie Community
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Connect with fellow Nollywood enthusiasts, discover hidden gems, 
-                and celebrate the rich tapestry of African cinema.
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gradient-bg-primary text-lg px-8 py-4">
-                <Heart className="mr-2 h-6 w-6" />
-                Start Your Journey
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-4">
-                <Users className="mr-2 h-6 w-6" />
-                Become a Critic
-              </Button>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12">
-              <div className="text-center">
-                <div className="text-3xl font-bold gradient-text-gold">50K+</div>
-                <div className="text-muted-foreground">Movie Reviews</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold gradient-text-gold">200+</div>
-                <div className="text-muted-foreground">Professional Critics</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold gradient-text-gold">1M+</div>
-                <div className="text-muted-foreground">Community Members</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold gradient-text-gold">3K+</div>
-                <div className="text-muted-foreground">Nollywood Films</div>
-              </div>
-            </div>
+      {/* Top Lemons Section */}
+      <section className="py-20 bg-gradient-to-br from-orange-500/10 via-red-500/10 to-yellow-500/10">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <MovieCarousel 
+            movies={topLemons.map(movie => ({
+              id: movie.id,
+              title: movie.title,
+              poster: movie.poster,
+              rating: movie.rating,
+              year: movie.year,
+              genre: movie.genre,
+            }))}
+            title="Top Lemons 🍋"
+          />
+          
+          <div className="text-center mt-8">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+              Even the best industry has its off days. Here are some films that didn&apos;t quite hit the mark.
+            </p>
+            <Button variant="outline" size="lg">
+              View All Lemons
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>

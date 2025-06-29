@@ -18,7 +18,7 @@ export default function ComingSoonPage() {
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Get ready for the next wave of Nigerian cinema. From blockbusters to indie gems, 
-              discover what's coming to screens near you.
+              discover what&apos;s coming to screens near you.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button variant="gradient" size="lg">
@@ -37,7 +37,7 @@ export default function ComingSoonPage() {
                   Release Calendar Coming Soon
                 </h3>
                 <p className="text-muted-foreground">
-                  We're building a comprehensive calendar of upcoming Nollywood releases.
+                  We&apos;re building a comprehensive calendar of upcoming Nollywood releases.
                 </p>
               </div>
             </div>

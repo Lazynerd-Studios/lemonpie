@@ -1,233 +1,347 @@
 "use client";
 
 import * as React from "react";
-import { Search, Filter, SlidersHorizontal, Grid, List } from "lucide-react";
+import Image from "next/image";
+import { Play, Star, SlidersHorizontal, Grid, List, LayoutGrid, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MovieCard } from "@/components/movie/movie-card";
+import { Card } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-// Mock data for movies
-const movies = [
+// Enhanced mock data for movies
+const allMovies = [
   {
     id: "king-of-boys-3",
     title: "King of Boys: The Return of the King",
-    poster: "/api/placeholder/movie/King of Boys The Return of the King/300x450",
+    poster: "/api/placeholder/movie/King of Boys The Return of the King/400x600",
     rating: 8.7,
-    criticsRating: 8.2,
-    audienceRating: 9.1,
     genre: ["Crime", "Drama", "Thriller"],
     year: 2023,
-    duration: 165,
-    description: "Eniola Salami returns in this epic conclusion to the King of Boys trilogy. After serving her time, she faces new challenges in a changed political landscape while dealing with family betrayals and the quest for redemption.",
-    director: "Kemi Adetiba",
-    cast: ["Sola Sobowale", "Toni Tones", "Richard Mofe-Damijo"],
-    isNollywood: true,
-  },
-  {
-    id: "elevator-baby",
-    title: "Elevator Baby",
-    poster: "/api/placeholder/movie/Elevator Baby/300x450",
-    rating: 7.8,
-    criticsRating: 7.5,
-    audienceRating: 8.1,
-    genre: ["Comedy", "Drama"],
-    year: 2023,
-    duration: 110,
-    description: "A chance encounter in an elevator leads to an unexpected journey of self-discovery and romance in modern Lagos.",
-    director: "Akay Mason",
-    cast: ["Timini Egbuson", "Bisola Aiyeola"],
-    isNollywood: true,
-  },
-  {
-    id: "gangs-of-lagos",
-    title: "Gangs of Lagos",
-    poster: "/api/placeholder/movie/Gangs of Lagos/300x450",
-    rating: 8.1,
-    criticsRating: 7.9,
-    audienceRating: 8.3,
-    genre: ["Crime", "Action", "Drama"],
-    year: 2023,
-    duration: 124,
-    description: "A group of friends from different backgrounds navigate the dangerous and complex underworld of Lagos, Nigeria.",
-    director: "Jade Osiberu",
-    cast: ["Tobi Bakre", "Adesua Etomi-Wellington"],
-    isNollywood: true,
-  },
-  {
-    id: "the-black-book",
-    title: "The Black Book",
-    poster: "/api/placeholder/movie/The Black Book/300x450",
-    rating: 8.4,
-    criticsRating: 8.6,
-    audienceRating: 8.2,
-    genre: ["Thriller", "Action", "Crime"],
-    year: 2023,
-    duration: 124,
-    description: "After his son is framed for a kidnapping, a bereaved deacon takes justice into his own hands and fights a corrupt police gang to absolve him.",
-    director: "Editi Effiong",
-    cast: ["Richard Mofe-Damijo", "Ade Laoye"],
-    isNollywood: true,
+    popularity: 95,
   },
   {
     id: "anikulapo",
     title: "Anikulapo",
-    poster: "/api/placeholder/movie/Anikulapo/300x450",
+    poster: "/api/placeholder/movie/Anikulapo/400x600",
     rating: 9.0,
-    criticsRating: 9.2,
-    audienceRating: 8.8,
     genre: ["Fantasy", "Drama", "Romance"],
     year: 2022,
-    duration: 142,
-    description: "A young man's quest for success leads him to a mystical bird that grants him the power to raise the dead.",
-    director: "Kunle Afolayan",
-    cast: ["Kunle Remi", "Bimbo Ademoye"],
-    isNollywood: true,
+    popularity: 92,
+  },
+  {
+    id: "the-black-book",
+    title: "The Black Book",
+    poster: "/api/placeholder/movie/The Black Book/400x600",
+    rating: 8.4,
+    genre: ["Thriller", "Action", "Crime"],
+    year: 2023,
+    popularity: 89,
+  },
+  {
+    id: "gangs-of-lagos",
+    title: "Gangs of Lagos",
+    poster: "/api/placeholder/movie/Gangs of Lagos/400x600",
+    rating: 8.1,
+    genre: ["Crime", "Action", "Drama"],
+    year: 2023,
+    popularity: 87,
+  },
+  {
+    id: "citation",
+    title: "Citation",
+    poster: "/api/placeholder/movie/Citation/400x600",
+    rating: 9.3,
+    genre: ["Drama", "Social"],
+    year: 2023,
+    popularity: 85,
+  },
+  {
+    id: "brotherhood",
+    title: "Brotherhood",
+    poster: "/api/placeholder/movie/Brotherhood/400x600",
+    rating: 8.8,
+    genre: ["Crime", "Action"],
+    year: 2023,
+    popularity: 84,
+  },
+  {
+    id: "elevator-baby",
+    title: "Elevator Baby",
+    poster: "/api/placeholder/movie/Elevator Baby/400x600",
+    rating: 7.8,
+    genre: ["Comedy", "Drama"],
+    year: 2023,
+    popularity: 82,
+  },
+  {
+    id: "jagun-jagun",
+    title: "Jagun Jagun",
+    poster: "/api/placeholder/movie/Jagun Jagun/400x600",
+    rating: 8.9,
+    genre: ["Action", "Drama", "Historical"],
+    year: 2024,
+    popularity: 80,
   },
   {
     id: "battle-on-buka-street",
     title: "Battle on Buka Street",
-    poster: "/api/placeholder/movie/Battle on Buka Street/300x450",
+    poster: "/api/placeholder/movie/Battle on Buka Street/400x600",
     rating: 7.5,
-    criticsRating: 7.8,
-    audienceRating: 7.2,
     genre: ["Comedy", "Drama"],
     year: 2022,
-    duration: 141,
-    description: "Two women who have built a close relationship find themselves in the middle of a political battle that threatens their friendship.",
-    director: "Funke Akindele",
-    cast: ["Funke Akindele", "Mercy Johnson"],
-    isNollywood: true,
+    popularity: 78,
+  },
+  {
+    id: "king-of-thieves",
+    title: "King of Thieves",
+    poster: "/api/placeholder/movie/King of Thieves/400x600",
+    rating: 9.0,
+    genre: ["Adventure", "Drama"],
+    year: 2023,
+    popularity: 76,
+  },
+  {
+    id: "water-man",
+    title: "The Water Man",
+    poster: "/api/placeholder/movie/The Water Man/400x600",
+    rating: 8.6,
+    genre: ["Fantasy", "Drama"],
+    year: 2023,
+    popularity: 74,
+  },
+  {
+    id: "progressive-tailors",
+    title: "Progressive Tailors Club",
+    poster: "/api/placeholder/movie/Progressive Tailors Club/400x600",
+    rating: 8.1,
+    genre: ["Comedy", "Drama"],
+    year: 2024,
+    popularity: 72,
   },
 ];
 
-const genres = ["All", "Action", "Comedy", "Crime", "Drama", "Fantasy", "Romance", "Thriller"];
 const sortOptions = [
-  { value: "rating", label: "Highest Rated" },
-  { value: "year", label: "Newest" },
+  { value: "popular", label: "Most popular first" },
+  { value: "rating", label: "Highest rated" },
+  { value: "newest", label: "Newest first" },
   { value: "title", label: "A-Z" },
-  { value: "popular", label: "Most Popular" },
 ];
 
-export default function MoviesPage() {
-  const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
-  const [selectedGenre, setSelectedGenre] = React.useState("All");
-  const [sortBy, setSortBy] = React.useState("rating");
-  const [searchQuery, setSearchQuery] = React.useState("");
-
-  const filteredMovies = React.useMemo(() => {
-    let filtered = movies;
-
-    // Filter by genre
-    if (selectedGenre !== "All") {
-      filtered = filtered.filter(movie => 
-        movie.genre.includes(selectedGenre)
-      );
-    }
-
-    // Filter by search query
-    if (searchQuery) {
-      filtered = filtered.filter(movie =>
-        movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        movie.director.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        movie.cast.some(actor => 
-          actor.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      );
-    }
-
-    // Sort movies
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "rating":
-          return b.rating - a.rating;
-        case "year":
-          return b.year - a.year;
-        case "title":
-          return a.title.localeCompare(b.title);
-        case "popular":
-          return b.audienceRating - a.audienceRating;
-        default:
-          return 0;
-      }
-    });
-
-    return filtered;
-  }, [selectedGenre, searchQuery, sortBy]);
-
+// Skeleton Loader Component
+function MovieCardSkeleton() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold tracking-tight mb-2">
-          Nigerian Movies
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Discover and explore the best of Nollywood cinema
-        </p>
+    <Card className="overflow-hidden bg-muted animate-pulse">
+      <div className="aspect-[3/4] bg-muted-foreground/20" />
+      <div className="p-3 space-y-2">
+        <div className="h-3 bg-muted-foreground/20 rounded w-3/4" />
+        <div className="h-2 bg-muted-foreground/20 rounded w-1/2" />
       </div>
+    </Card>
+  );
+}
 
-      {/* Search and Filters */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-lg">Search & Filter</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Search movies, directors, or actors..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+// Movie Card Component with Lazy Loading
+function MovieCard({ movie, viewMode, isLoading = false }: { movie: any; viewMode: string; isLoading?: boolean }) {
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  if (isLoading) {
+    return <MovieCardSkeleton />;
+  }
+
+  // Landscape view - horizontal layout
+  if (viewMode === "landscape") {
+    return (
+      <Card 
+        className="group overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="flex">
+          <div className="relative w-32 h-48 flex-shrink-0 overflow-hidden">
+            {!imageLoaded && (
+              <div className="absolute inset-0 bg-muted animate-pulse" />
+            )}
+            <Image
+              src={movie.poster}
+              alt={movie.title}
+              fill
+              className={`object-cover transition-all duration-500 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              } ${isHovered ? 'scale-110' : 'scale-100'}`}
+              onLoad={() => setImageLoaded(true)}
+              loading="lazy"
             />
-          </div>
-
-          {/* Filters */}
-          <div className="flex flex-wrap gap-4 items-center">
-            {/* Genre Filter */}
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Genre:</span>
-              <div className="flex flex-wrap gap-1">
-                {genres.map((genre) => (
-                  <Badge
-                    key={genre}
-                    variant={selectedGenre === genre ? "default" : "outline"}
-                    className="cursor-pointer"
-                    onClick={() => setSelectedGenre(genre)}
-                  >
-                    {genre}
-                  </Badge>
-                ))}
+            
+            {/* Play Button Overlay */}
+            <div className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-300 ${
+              isHovered ? 'opacity-100' : 'opacity-0'
+            }`}>
+              <div className="bg-white/90 hover:bg-white rounded-full p-3 transition-all duration-200 hover:scale-110">
+                <Play className="h-6 w-6 text-black fill-black ml-0.5" />
               </div>
             </div>
 
-            {/* Sort */}
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Sort by:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-3 py-1 border border-border rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+            {/* Rating Badge */}
+            <div className="absolute top-2 left-2">
+              <Badge variant="secondary" className="bg-black/80 text-white border-0 text-xs">
+                <Star className="h-3 w-3 mr-1 fill-orange-400 text-orange-400" />
+                {movie.rating}
+              </Badge>
             </div>
+          </div>
+          
+          <div className="p-4 flex-1">
+            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-lg">
+              {movie.title}
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              {movie.year} • {movie.genre.join(", ")}
+            </p>
+            <p className="text-sm text-muted-foreground mt-2 line-clamp-3">
+              A captivating Nigerian film that showcases the rich storytelling tradition of Nollywood cinema.
+            </p>
+          </div>
+        </div>
+      </Card>
+    );
+  }
 
-            {/* View Mode */}
-            <div className="flex items-center gap-1 ml-auto">
+  // Grid view - reduced height
+  return (
+    <Card 
+      className="group overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative aspect-[3/4] overflow-hidden">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-muted animate-pulse" />
+        )}
+        <Image
+          src={movie.poster}
+          alt={movie.title}
+          fill
+          className={`object-cover transition-all duration-500 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          } ${isHovered ? 'scale-110' : 'scale-100'}`}
+          onLoad={() => setImageLoaded(true)}
+          loading="lazy"
+        />
+        
+        {/* Play Button Overlay */}
+        <div className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-300 ${
+          isHovered ? 'opacity-100' : 'opacity-0'
+        }`}>
+          <div className="bg-white/90 hover:bg-white rounded-full p-4 transition-all duration-200 hover:scale-110">
+            <Play className="h-8 w-8 text-black fill-black ml-1" />
+          </div>
+        </div>
+
+        {/* Rating Badge */}
+        <div className="absolute top-3 left-3">
+          <Badge variant="secondary" className="bg-black/80 text-white border-0">
+            <Star className="h-3 w-3 mr-1 fill-orange-400 text-orange-400" />
+            {movie.rating} / 10
+          </Badge>
+        </div>
+      </div>
+      
+      <div className="p-3">
+        <h3 className="font-semibold text-foreground truncate group-hover:text-primary transition-colors text-sm">
+          {movie.title}
+        </h3>
+        <p className="text-xs text-muted-foreground mt-1">
+          {movie.year} • {movie.genre.join(", ")}
+        </p>
+      </div>
+    </Card>
+  );
+}
+
+export default function MoviesPage() {
+  const [sortBy, setSortBy] = React.useState("popular");
+  const [viewMode, setViewMode] = React.useState<"grid" | "list" | "landscape">("grid");
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [displayedMovies, setDisplayedMovies] = React.useState<any[]>([]);
+
+  // Simulate loading
+  React.useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      const sorted = [...allMovies].sort((a, b) => {
+        switch (sortBy) {
+          case "popular":
+            return b.popularity - a.popularity;
+          case "rating":
+            return b.rating - a.rating;
+          case "newest":
+            return b.year - a.year;
+          case "title":
+            return a.title.localeCompare(b.title);
+          default:
+            return 0;
+        }
+      });
+      setDisplayedMovies(sorted);
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [sortBy]);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center space-x-4">
+            <div className="h-8 w-1 bg-orange-500 rounded-full" />
+            <h1 className="text-4xl font-bold">Browse Movies</h1>
+          </div>
+
+          {/* Controls */}
+          <div className="flex items-center space-x-4">
+            {/* Sort Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  <SlidersHorizontal className="h-4 w-4 mr-2" />
+                  {sortOptions.find(option => option.value === sortBy)?.label}
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {sortOptions.map((option) => (
+                  <DropdownMenuItem
+                    key={option.value}
+                    onClick={() => setSortBy(option.value)}
+                    className={sortBy === option.value ? "bg-accent" : ""}
+                  >
+                    {option.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Filter Button */}
+            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+              <SlidersHorizontal className="h-4 w-4 mr-2" />
+              Filter
+            </Button>
+
+            {/* View Mode Toggle */}
+            <div className="flex border rounded-lg overflow-hidden">
               <Button
                 variant={viewMode === "grid" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setViewMode("grid")}
+                className="rounded-none"
               >
                 <Grid className="h-4 w-4" />
               </Button>
@@ -235,59 +349,49 @@ export default function MoviesPage() {
                 variant={viewMode === "list" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setViewMode("list")}
+                className="rounded-none"
               >
                 <List className="h-4 w-4" />
               </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Results */}
-      <div className="mb-4">
-        <p className="text-muted-foreground">
-          Showing {filteredMovies.length} of {movies.length} movies
-        </p>
-      </div>
-
-      {/* Movies Grid/List */}
-      {filteredMovies.length > 0 ? (
-        <div className={
-          viewMode === "grid" 
-            ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            : "space-y-6"
-        }>
-          {filteredMovies.map((movie) => (
-            <MovieCard 
-              key={movie.id} 
-              movie={movie}
-              variant={viewMode === "list" ? "featured" : "default"}
-            />
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-16">
-            <div className="text-center space-y-4">
-              <div className="text-4xl">🎬</div>
-              <h3 className="text-xl font-semibold">No movies found</h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search criteria or filters
-              </p>
               <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedGenre("All");
-                  setSortBy("rating");
-                }}
+                variant={viewMode === "landscape" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("landscape")}
+                className="rounded-none"
               >
-                Clear Filters
+                <LayoutGrid className="h-4 w-4" />
               </Button>
             </div>
-          </CardContent>
-        </Card>
-      )}
+          </div>
+        </div>
+
+        {/* Movies Grid */}
+        <div className={`grid gap-4 ${
+          viewMode === "grid" 
+            ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8" 
+            : viewMode === "landscape"
+            ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            : "grid-cols-1"
+        }`}>
+          {isLoading
+            ? Array.from({ length: 12 }).map((_, index) => (
+                <MovieCardSkeleton key={index} />
+              ))
+            : displayedMovies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} viewMode={viewMode} />
+              ))
+          }
+        </div>
+
+        {/* Load More Button */}
+        {!isLoading && (
+          <div className="flex justify-center mt-12">
+            <Button variant="outline" size="lg" className="px-8">
+              Load More Movies
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 } 

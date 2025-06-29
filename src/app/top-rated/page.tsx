@@ -37,7 +37,7 @@ export default function TopRatedPage() {
                   Top Rated Movies Coming Soon
                 </h3>
                 <p className="text-muted-foreground">
-                  We're compiling the definitive list of Nollywood's greatest films.
+                  We&apos;re compiling the definitive list of Nollywood&apos;s greatest films.
                 </p>
               </div>
             </div>

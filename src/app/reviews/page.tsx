@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Star, Filter, User, Award, Calendar, ThumbsUp, MessageCircle, Share2 } from "lucide-react";
+import Image from "next/image";
+import { Star, Filter, Award, ThumbsUp, MessageCircle, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDate, getRatingColor } from "@/lib/utils";
 
@@ -177,11 +178,12 @@ export default function ReviewsPage() {
                   <div className="grid lg:grid-cols-12 gap-6">
                     {/* Movie Poster */}
                     <div className="lg:col-span-2">
-                      <div className="aspect-[2/3] overflow-hidden rounded-lg">
-                        <img
+                      <div className="aspect-[2/3] overflow-hidden rounded-lg relative">
+                        <Image
                           src={review.moviePoster}
                           alt={review.movieTitle}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
                         />
                       </div>
                     </div>
@@ -233,11 +235,12 @@ export default function ReviewsPage() {
 
                       {/* Reviewer Info */}
                       <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-full overflow-hidden">
-                          <img
+                        <div className="h-12 w-12 rounded-full overflow-hidden relative">
+                          <Image
                             src={review.reviewerImage}
                             alt={review.reviewer}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         </div>
                         <div>
@@ -355,11 +358,12 @@ export default function ReviewsPage() {
                   <Card key={critic.id} className="cinema-card">
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="h-16 w-16 rounded-full overflow-hidden">
-                          <img
+                        <div className="h-16 w-16 rounded-full overflow-hidden relative">
+                          <Image
                             src={critic.image}
                             alt={critic.name}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         </div>
                         <div className="flex-1 space-y-2">

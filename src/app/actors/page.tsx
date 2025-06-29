@@ -3,7 +3,6 @@
 import * as React from "react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Star, Award, Search, Filter, TrendingUp } from "lucide-react";
 

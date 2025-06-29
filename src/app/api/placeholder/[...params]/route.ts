@@ -98,7 +98,7 @@ export async function GET(
         'Cache-Control': 'public, max-age=31536000',
       },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to generate placeholder' },
       { status: 500 }

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Film, Star, Users, TrendingUp, Calendar, Award, LogIn, UserPlus } from "lucide-react";
+import { Search, Menu, X, Film, Star, Users, Calendar, Award, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -72,7 +72,6 @@ export function Navigation() {
         {/* Desktop navigation */}
         <div className="hidden lg:flex lg:gap-x-2">
           {navigation.map((item) => {
-            const Icon = item.icon;
             const isActive = pathname === item.href;
             return (
               <Link
@@ -85,10 +84,6 @@ export function Navigation() {
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <Icon className={cn(
-                  "h-4 w-4 transition-colors duration-300",
-                  isActive ? "text-primary" : "group-hover:text-primary"
-                )} />
                 <span>{item.name}</span>
                 {isActive && (
                   <div className="h-1.5 w-1.5 rounded-full bg-primary" />

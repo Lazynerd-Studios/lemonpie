@@ -1,6 +1,5 @@
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { 
   Star, 
@@ -17,10 +16,33 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MovieCard } from "@/components/movie/movie-card";
-import { cn, formatRating, getRatingColor, formatDate } from "@/lib/utils";
+import { formatRating, getRatingColor, formatDate } from "@/lib/utils";
+
+interface Movie {
+  id: string;
+  title: string;
+  poster: string;
+  backdrop: string;
+  rating: number;
+  criticsRating: number;
+  audienceRating: number;
+  genre: string[];
+  year: number;
+  duration: number;
+  releaseDate: string;
+  description: string;
+  director: string;
+  writers: string[];
+  cast: Array<{ name: string; character: string }>;
+  isNollywood: boolean;
+  budget: string;
+  boxOffice: string;
+  awards: string[];
+  trailer: string;
+}
 
 // Mock movie data
-const movieData: Record<string, any> = {
+const movieData: Record<string, Movie> = {
   "king-of-boys-3": {
     id: "king-of-boys-3",
     title: "King of Boys: The Return of the King",
@@ -293,7 +315,7 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {movie.cast.map((actor: any, index: number) => (
+                  {movie.cast.map((actor, index: number) => (
                     <div key={index} className="flex items-center space-x-4">
                       <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
                         <Users className="h-6 w-6 text-muted-foreground" />
