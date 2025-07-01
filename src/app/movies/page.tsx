@@ -132,6 +132,13 @@ const sortOptions = [
   { value: "title", label: "A-Z" },
 ];
 
+// Add filter options
+const filterOptions = {
+  genres: ["All Genres", "Action", "Comedy", "Crime", "Drama", "Fantasy", "Romance", "Thriller", "Historical", "Social", "Adventure"],
+  years: ["All Years", "2024", "2023", "2022", "2021", "2020"],
+  ratings: ["All Ratings", "9.0+", "8.0+", "7.0+", "6.0+"]
+};
+
 // Skeleton Loader Component
 function MovieCardSkeleton() {
   return (
@@ -269,12 +276,34 @@ export default function MoviesPage() {
   const [viewMode, setViewMode] = React.useState<"grid" | "list" | "landscape">("grid");
   const [isLoading, setIsLoading] = React.useState(true);
   const [displayedMovies, setDisplayedMovies] = React.useState<any[]>([]);
+  
+  // Add filter states
+  const [selectedGenre, setSelectedGenre] = React.useState("All Genres");
+  const [selectedYear, setSelectedYear] = React.useState("All Years");
+  const [selectedRating, setSelectedRating] = React.useState("All Ratings");
 
-  // Simulate loading
+  // Updated useEffect to handle filtering
   React.useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
-      const sorted = [...allMovies].sort((a, b) => {
+      let filtered = [...allMovies];
+      
+      // Apply filters
+      if (selectedGenre !== "All Genres") {
+        filtered = filtered.filter(movie => movie.genre.includes(selectedGenre));
+      }
+      
+      if (selectedYear !== "All Years") {
+        filtered = filtered.filter(movie => movie.year.toString() === selectedYear);
+      }
+      
+      if (selectedRating !== "All Ratings") {
+        const minRating = parseFloat(selectedRating.replace("+", ""));
+        filtered = filtered.filter(movie => movie.rating >= minRating);
+      }
+      
+      // Apply sorting
+      const sorted = filtered.sort((a, b) => {
         switch (sortBy) {
           case "popular":
             return b.popularity - a.popularity;
@@ -293,7 +322,7 @@ export default function MoviesPage() {
     }, 800);
 
     return () => clearTimeout(timer);
-  }, [sortBy]);
+  }, [sortBy, selectedGenre, selectedYear, selectedRating]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -329,11 +358,81 @@ export default function MoviesPage() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Filter Button */}
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              <SlidersHorizontal className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
+            {/* Filter Dropdown - Updated with actual filter options */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  <SlidersHorizontal className="h-4 w-4 mr-2" />
+                  Filter
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 p-4">
+                <div className="space-y-4">
+                  {/* Genre Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Genre</label>
+                    <select 
+                      value={selectedGenre}
+                      onChange={(e) => setSelectedGenre(e.target.value)}
+                      className="w-full p-2 text-sm border rounded-md bg-background"
+                    >
+                      {filterOptions.genres.map((genre) => (
+                        <option key={genre} value={genre}>
+                          {genre}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  {/* Year Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Year</label>
+                    <select 
+                      value={selectedYear}
+                      onChange={(e) => setSelectedYear(e.target.value)}
+                      className="w-full p-2 text-sm border rounded-md bg-background"
+                    >
+                      {filterOptions.years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  {/* Rating Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Rating</label>
+                    <select 
+                      value={selectedRating}
+                      onChange={(e) => setSelectedRating(e.target.value)}
+                      className="w-full p-2 text-sm border rounded-md bg-background"
+                    >
+                      {filterOptions.ratings.map((rating) => (
+                        <option key={rating} value={rating}>
+                          {rating}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  {/* Clear Filters Button */}
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => {
+                      setSelectedGenre("All Genres");
+                      setSelectedYear("All Years");
+                      setSelectedRating("All Ratings");
+                    }}
+                    className="w-full"
+                  >
+                    Clear Filters
+                  </Button>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* View Mode Toggle */}
             <div className="flex border rounded-lg overflow-hidden">
@@ -365,10 +464,10 @@ export default function MoviesPage() {
           </div>
         </div>
 
-        {/* Movies Grid */}
+        {/* Movies Grid - Updated to 6 columns for grid mode */}
         <div className={`grid gap-4 ${
           viewMode === "grid" 
-            ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8" 
+            ? "grid-cols-6" 
             : viewMode === "landscape"
             ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
             : "grid-cols-1"
