@@ -28,6 +28,8 @@ const badgeVariants = cva(
           "border-border bg-muted text-muted-foreground hover:bg-muted/80",
         rating:
           "border-transparent bg-gradient-to-r from-primary to-nollywood-gold text-white font-bold",
+        gradient:
+          "border-transparent bg-gradient-to-r from-primary via-nollywood-gold to-primary text-white font-medium",
       },
     },
     defaultVariants: {
