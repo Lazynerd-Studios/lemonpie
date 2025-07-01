@@ -140,9 +140,9 @@ const reviews = [
 ];
 
 interface MovieDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function MovieDetailPage({ params }: MovieDetailPageProps) {
