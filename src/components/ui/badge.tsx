@@ -30,6 +30,8 @@ const badgeVariants = cva(
           "border-transparent bg-gradient-to-r from-primary to-nollywood-gold text-white font-bold",
         gradient:
           "border-transparent bg-gradient-to-r from-primary via-nollywood-gold to-primary text-white font-medium",
+        "gradient-gold":
+          "border-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 text-black font-medium",
       },
     },
     defaultVariants: {
