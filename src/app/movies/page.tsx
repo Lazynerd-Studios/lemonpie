@@ -13,8 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+// Movie interface for type safety
+interface Movie {
+  id: string;
+  title: string;
+  poster: string;
+  rating: number;
+  genre: string[];
+  year: number;
+  popularity: number;
+}
+
 // Enhanced mock data for movies
-const allMovies = [
+const allMovies: Movie[] = [
   {
     id: "king-of-boys-3",
     title: "King of Boys: The Return of the King",
@@ -153,7 +164,7 @@ function MovieCardSkeleton() {
 }
 
 // Movie Card Component with Lazy Loading
-function MovieCard({ movie, viewMode, isLoading = false }: { movie: any; viewMode: string; isLoading?: boolean }) {
+function MovieCard({ movie, viewMode, isLoading = false }: { movie: Movie; viewMode: string; isLoading?: boolean }) {
   const [imageLoaded, setImageLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -275,7 +286,7 @@ export default function MoviesPage() {
   const [sortBy, setSortBy] = React.useState("popular");
   const [viewMode, setViewMode] = React.useState<"grid" | "list" | "landscape">("grid");
   const [isLoading, setIsLoading] = React.useState(true);
-  const [displayedMovies, setDisplayedMovies] = React.useState<any[]>([]);
+  const [displayedMovies, setDisplayedMovies] = React.useState<Movie[]>([]);
   
   // Add filter states
   const [selectedGenre, setSelectedGenre] = React.useState("All Genres");
