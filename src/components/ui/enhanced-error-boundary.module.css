@@ -1,0 +1,339 @@
+/* Error Container */
+.errorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.errorContainer.page {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.errorContainer.section {
+  min-height: 400px;
+  background: var(--card);
+  border-radius: 12px;
+}
+
+.errorContainer.component {
+  min-height: 200px;
+  background: var(--muted);
+  border-radius: 8px;
+}
+
+/* Error Card */
+.errorCard {
+  width: 100%;
+  max-width: 600px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.errorCard.page {
+  max-width: 800px;
+}
+
+.errorCard.section {
+  max-width: 600px;
+}
+
+.errorCard.component {
+  max-width: 400px;
+}
+
+/* Error Header */
+.errorHeader {
+  text-align: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.errorIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.errorIcon.network {
+  background: var(--warning-foreground/10);
+  color: var(--warning-foreground);
+}
+
+.errorIcon.chunk {
+  background: var(--info-foreground/10);
+  color: var(--info-foreground);
+}
+
+.errorIcon.runtime {
+  background: var(--destructive-foreground/10);
+  color: var(--destructive-foreground);
+}
+
+.errorIcon.boundary {
+  background: var(--secondary-foreground/10);
+  color: var(--secondary-foreground);
+}
+
+.errorIcon.unknown {
+  background: var(--destructive-foreground/10);
+  color: var(--destructive-foreground);
+}
+
+.errorTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.errorBadge {
+  margin-bottom: 0.5rem;
+}
+
+.errorSource {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+/* Error Content */
+.errorContent {
+  padding: 2rem;
+  text-align: center;
+}
+
+.errorMessage {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+}
+
+.retryInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--muted);
+  border-radius: 6px;
+}
+
+/* Error Details */
+.errorDetails {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.errorDetailsSummary {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+  user-select: none;
+}
+
+.errorDetailsSummary:hover {
+  background: var(--muted/80);
+}
+
+.errorDetailsContent {
+  padding: 1rem;
+  background: var(--card);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.errorStack {
+  margin-bottom: 1rem;
+}
+
+.errorStack:last-child {
+  margin-bottom: 0;
+}
+
+.errorStack strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+  font-size: 0.875rem;
+}
+
+.errorStack pre {
+  background: var(--muted);
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--foreground);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Error Actions */
+.errorActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.primaryAction {
+  order: 1;
+  min-width: 120px;
+}
+
+.secondaryAction {
+  order: 2;
+  min-width: 120px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .errorContainer {
+    padding: 1rem;
+  }
+
+  .errorCard {
+    margin: 0;
+  }
+
+  .errorHeader {
+    padding: 1.5rem;
+  }
+
+  .errorContent {
+    padding: 1.5rem;
+  }
+
+  .errorTitle {
+    font-size: 1.25rem;
+  }
+
+  .errorMessage {
+    font-size: 0.875rem;
+  }
+
+  .errorActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    min-width: 100%;
+    order: unset;
+  }
+
+  .errorDetailsContent {
+    max-height: 200px;
+  }
+
+  .errorStack pre {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .errorContainer {
+    padding: 0.5rem;
+  }
+
+  .errorHeader {
+    padding: 1rem;
+  }
+
+  .errorContent {
+    padding: 1rem;
+  }
+
+  .errorIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .errorTitle {
+    font-size: 1.125rem;
+  }
+
+  .errorMessage {
+    font-size: 0.8125rem;
+  }
+
+  .errorDetailsContent {
+    max-height: 150px;
+  }
+
+  .errorStack pre {
+    font-size: 0.625rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorContainer {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .errorCard {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  .errorIcon.network {
+    background: var(--warning/20);
+    color: var(--warning);
+  }
+  
+  .errorIcon.chunk {
+    background: var(--info/20);
+    color: var(--info);
+  }
+  
+  .errorIcon.runtime {
+    background: var(--destructive/20);
+    color: var(--destructive);
+  }
+  
+  .errorIcon.boundary {
+    background: var(--secondary/20);
+    color: var(--secondary);
+  }
+  
+  .errorIcon.unknown {
+    background: var(--destructive/20);
+    color: var(--destructive);
+  }
+} 

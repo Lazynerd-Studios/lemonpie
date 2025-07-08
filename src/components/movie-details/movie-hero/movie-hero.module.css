@@ -1,0 +1,322 @@
+/* Back Button Container */
+.backButtonContainer {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--background);
+  background: rgba(var(--background-rgb), 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.backButtonWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  transform: translateX(-2px);
+}
+
+/* Hero Section */
+.heroSection {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.backdropContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.backdropImage {
+  object-fit: cover;
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.bottomGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    transparent 50%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.contentWrapper {
+  width: 100%;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Poster Section */
+.posterContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.posterGroup {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.posterGroup:hover {
+  transform: scale(1.05);
+}
+
+.posterImage {
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease;
+}
+
+.ratingBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--nollywood-gold);
+  color: var(--foreground);
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posterGroup:hover .playOverlay {
+  opacity: 1;
+}
+
+.playButton {
+  background: white;
+  color: black;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.playButton:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Movie Info Section */
+.movieInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: white;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nollywoodBadge {
+  font-size: 0.875rem;
+  font-weight: 700;
+  width: fit-content;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.movieTitle {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--nollywood-gold), var(--lagos-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.metaInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.8);
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.genresSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.genreBadge {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  animation: fadeInUp 0.8s ease-out 1s both;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 1.2s both;
+}
+
+.watchButton {
+  background: var(--nollywood-gold);
+  color: var(--foreground);
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.watchButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(247, 208, 47, 0.4);
+}
+
+.watchlistButton,
+.saveButton,
+.shareButton {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.watchlistButton:hover,
+.saveButton:hover,
+.shareButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .posterContainer {
+    order: 2;
+  }
+  
+  .movieInfo {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    height: 90vh;
+  }
+  
+  .backButtonWrapper {
+    padding: 1rem;
+  }
+  
+  .heroContent {
+    padding: 0 1rem;
+  }
+  
+  .actionButtons {
+    justify-content: center;
+  }
+  
+  .actionButtons button {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .actionButtons {
+    flex-direction: column;
+  }
+  
+  .metaInfo {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  .genresSection {
+    justify-content: center;
+  }
+} 

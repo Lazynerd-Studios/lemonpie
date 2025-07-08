@@ -1,0 +1,521 @@
+/* Base Skeleton Styles */
+.skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--muted-foreground/10) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton.animate {
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton.circular {
+  border-radius: 50%;
+}
+
+.skeleton.rounded {
+  border-radius: 8px;
+}
+
+.skeleton.text {
+  border-radius: 2px;
+}
+
+.skeleton.button {
+  border-radius: 6px;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Movie Skeleton Containers */
+.movieSkeletonContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.movieSkeletonContainer.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.movieSkeletonContainer.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.movieSkeletonContainer.carouselContainer {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.movieSkeletonContainer.carouselContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.skeletonItem {
+  flex-shrink: 0;
+}
+
+/* Movie Skeleton Grid */
+.movieSkeletonGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.movieSkeletonGrid .poster {
+  aspect-ratio: 2/3;
+  width: 100%;
+}
+
+.movieSkeletonGrid .content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.movieSkeletonGrid .title {
+  margin-bottom: 0.5rem;
+}
+
+.movieSkeletonGrid .meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.movieSkeletonGrid .genres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.movieSkeletonGrid .description {
+  margin: 0.5rem 0;
+}
+
+.movieSkeletonGrid .actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* Movie Skeleton List */
+.movieSkeletonList {
+  display: flex;
+  gap: 1.5rem;
+  height: 200px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.movieSkeletonList .poster {
+  flex-shrink: 0;
+}
+
+.movieSkeletonList .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.movieSkeletonList .title {
+  margin-bottom: 0.5rem;
+}
+
+.movieSkeletonList .meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.movieSkeletonList .genres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.movieSkeletonList .description {
+  margin: 0.5rem 0;
+  flex: 1;
+}
+
+.movieSkeletonList .actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* Movie Skeleton Hero */
+.movieSkeletonHero {
+  display: flex;
+  gap: 2rem;
+  height: 300px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.movieSkeletonHero .poster {
+  flex-shrink: 0;
+}
+
+.movieSkeletonHero .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  justify-content: space-between;
+}
+
+.movieSkeletonHero .title {
+  margin-bottom: 0.5rem;
+}
+
+.movieSkeletonHero .meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.movieSkeletonHero .genres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.movieSkeletonHero .description {
+  margin: 0.5rem 0;
+  flex: 1;
+}
+
+.movieSkeletonHero .ratings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.movieSkeletonHero .ratingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movieSkeletonHero .actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* Movie Skeleton Carousel */
+.movieSkeletonCarousel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 240px;
+  height: 420px;
+}
+
+.movieSkeletonCarousel .poster {
+  flex-shrink: 0;
+}
+
+.movieSkeletonCarousel .content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.movieSkeletonCarousel .title {
+  margin-bottom: 0.25rem;
+}
+
+.movieSkeletonCarousel .meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Movie Skeleton Minimal */
+.movieSkeletonMinimal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 200px;
+}
+
+.movieSkeletonMinimal .poster {
+  aspect-ratio: 2/3;
+  width: 100%;
+}
+
+.movieSkeletonMinimal .content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+}
+
+.movieSkeletonMinimal .title {
+  margin-bottom: 0.25rem;
+}
+
+.movieSkeletonMinimal .meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Section Skeleton */
+.sectionSkeleton {
+  width: 100%;
+  padding: 4rem 0;
+}
+
+.sectionHeader {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  margin-bottom: 0.5rem;
+}
+
+.sectionContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero Skeleton */
+.heroSkeleton {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+}
+
+.heroContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+
+.badge {
+  margin-bottom: 1rem;
+}
+
+.heroTitle {
+  margin-bottom: 1rem;
+}
+
+.heroMeta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.heroGenres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.heroDescription {
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+
+.heroCast {
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Navigation Skeleton */
+.navigationSkeleton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+}
+
+.logo {
+  margin-right: 2rem;
+}
+
+.navItems {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex: 1;
+}
+
+.navActions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Actor Skeleton */
+.actorSkeletonContainer {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.actorSkeletonItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.actorImage {
+  margin-bottom: 0.5rem;
+}
+
+.actorName {
+  margin-bottom: 0.25rem;
+}
+
+.actorRating {
+  margin-bottom: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .movieSkeletonList {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .movieSkeletonList .poster {
+    width: 100%;
+    height: 200px;
+  }
+
+  .movieSkeletonHero {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .movieSkeletonHero .poster {
+    width: 100%;
+    height: 200px;
+  }
+
+  .movieSkeletonCarousel {
+    width: 200px;
+    height: 350px;
+  }
+
+  .movieSkeletonContainer.gridContainer {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .heroContent {
+    padding: 1rem;
+  }
+
+  .navigationSkeleton {
+    padding: 1rem;
+  }
+
+  .navItems {
+    display: none;
+  }
+
+  .actorSkeletonContainer {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .movieSkeletonCarousel {
+    width: 160px;
+    height: 280px;
+  }
+
+  .movieSkeletonContainer.gridContainer {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .actorSkeletonContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .heroContent {
+    gap: 1rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background: linear-gradient(90deg, var(--muted) 25%, var(--muted-foreground/20) 50%, var(--muted) 75%);
+  }
+} 
