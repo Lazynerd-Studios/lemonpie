@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Film, Star, Users, Calendar, Award, LogIn, UserPlus } from "lucide-react";
+import Image from "next/image";
+import { Search, Menu, X, Film, Star, Users, Calendar, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -40,10 +41,13 @@ export function Navigation() {
         <div className="flex lg:flex-1">
           <Link href="/" className="group flex items-center space-x-3 transition-transform hover:scale-105">
             <div className="relative">
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-lagos-orange flex items-center justify-center shadow-lg group-hover:shadow-primary/50 transition-all duration-300">
-                <Film className="h-6 w-6 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 h-3 w-3 bg-nollywood-gold rounded-full animate-pulse" />
+              <Image 
+                src="/logo.svg" 
+                alt="LemonnPie Logo" 
+                width={40} 
+                height={40} 
+                className="h-10 w-10 transition-all duration-300 group-hover:scale-110"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-2xl font-bold gradient-text-primary">LemonnPie</span>
@@ -104,11 +108,9 @@ export function Navigation() {
             <span className="sr-only">Search</span>
           </Button>
           <Button variant="ghost" size="sm" className="font-medium">
-            <LogIn className="mr-2 h-4 w-4" />
             Login
           </Button>
           <Button variant="gradient" size="sm" className="font-semibold">
-            <UserPlus className="mr-2 h-4 w-4" />
             Register
           </Button>
         </div>
@@ -163,7 +165,6 @@ export function Navigation() {
                     className="flex-1"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <LogIn className="mr-2 h-4 w-4" />
                     Login
                   </Button>
                   <Button 
@@ -171,7 +172,6 @@ export function Navigation() {
                     className="flex-1"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <UserPlus className="mr-2 h-4 w-4" />
                     Register
                   </Button>
                 </div>

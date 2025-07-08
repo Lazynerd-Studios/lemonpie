@@ -1,14 +1,18 @@
+"use client";
+
 import * as React from "react";
 import Image from "next/image";
 import { 
   Play, 
   Star,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingActorsCarousel } from "@/components/ui/trending-actors-carousel";
 import { MovieCarousel } from "@/components/ui/movie-carousel";
+import { getActorImage } from "@/lib/movie-images";
 
 // Mock data for the enhanced homepage
 const heroMovie = {
@@ -29,49 +33,49 @@ const trendingActors = [
   {
     id: "1",
     name: "Genevieve Nnaji",
-    image: "/api/placeholder/actor/Genevieve Nnaji",
+    image: getActorImage("genevieve-nnaji"),
     rating: 98,
   },
   {
     id: "2", 
     name: "Ramsey Nouah",
-    image: "/api/placeholder/actor/Ramsey Nouah",
+    image: getActorImage("ramsey-nouah"),
     rating: 95,
   },
   {
     id: "3",
     name: "Funke Akindele",
-    image: "/api/placeholder/actor/Funke Akindele",
+    image: getActorImage("funke-akindele"),
     rating: 93,
   },
   {
     id: "4",
     name: "Jim Iyke",
-    image: "/api/placeholder/actor/Jim Iyke",
+    image: getActorImage("jim-iyke"),
     rating: 89,
   },
   {
     id: "5",
     name: "Mercy Johnson",
-    image: "/api/placeholder/actor/Mercy Johnson",
+    image: getActorImage("mercy-johnson"),
     rating: 91,
   },
   {
     id: "6",
     name: "Richard Mofe-Damijo",
-    image: "/api/placeholder/actor/Richard Mofe-Damijo",
+    image: getActorImage("richard-mofe-damijo"),
     rating: 87,
   },
   {
     id: "7",
     name: "Omotola Jalade",
-    image: "/api/placeholder/actor/Omotola Jalade",
+    image: getActorImage("omotola-jalade"),
     rating: 94,
   },
   {
     id: "8",
     name: "Nkem Owoh",
-    image: "/api/placeholder/actor/Nkem Owoh",
+    image: getActorImage("nkem-owoh"),
     rating: 88,
   },
 ];
@@ -291,6 +295,22 @@ const nowInCinemas = [
 ];
 
 export default function HomePage() {
+  // Trending Actors Carousel State
+  const [currentActorPage, setCurrentActorPage] = React.useState(0);
+  const actorsPerPage = 6;
+  const totalActorPages = Math.ceil(trendingActors.length / actorsPerPage);
+  
+  const canScrollActorsLeft = currentActorPage > 0;
+  const canScrollActorsRight = currentActorPage < totalActorPages - 1;
+  
+  const goToPreviousActorPage = () => {
+    setCurrentActorPage(prev => Math.max(0, prev - 1));
+  };
+  
+  const goToNextActorPage = () => {
+    setCurrentActorPage(prev => Math.min(totalActorPages - 1, prev + 1));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Cinematic Hero Section - Reduced Height */}
@@ -365,16 +385,43 @@ export default function HomePage() {
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="mb-8">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-1 bg-orange-500"></div>
-              <h2 className="text-3xl font-bold">
-                Trending Actors
-              </h2>
-              <ChevronRight className="h-6 w-6 text-muted-foreground" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-1 bg-orange-500"></div>
+                <h2 className="text-3xl font-bold">
+                  Trending Actors
+                </h2>
+                <ChevronRight className="h-6 w-6 text-muted-foreground" />
+              </div>
+              
+              {/* Carousel Navigation */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={goToPreviousActorPage}
+                  disabled={!canScrollActorsLeft}
+                  className="bg-background/80 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+                <button
+                  onClick={goToNextActorPage}
+                  disabled={!canScrollActorsRight}
+                  className="bg-background/80 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </button>
+              </div>
             </div>
           </div>
 
-          <TrendingActorsCarousel actors={trendingActors} />
+          <TrendingActorsCarousel 
+            actors={trendingActors}
+            currentPage={currentActorPage}
+            itemsPerPage={actorsPerPage}
+            totalPages={totalActorPages}
+          />
         </div>
       </section>
 

@@ -79,9 +79,11 @@ export function MovieCard({ movie, variant = "default", className }: MovieCardPr
 
         {/* Hover Play Button */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button size="icon-lg" variant="cinema" className="rounded-full">
-            <Star className="h-6 w-6" />
-          </Button>
+          <Link href={`/movies/${movie.id}`}>
+            <Button size="icon-lg" variant="cinema" className="rounded-full">
+              <Star className="h-6 w-6" />
+            </Button>
+          </Link>
         </div>
       </div>
 
