@@ -282,43 +282,13 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Search History */
-.searchHistory {
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.searchHistoryTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: 1rem;
-}
-
-.searchHistoryList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.searchHistoryItem {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--muted);
+/* Search History Container */
+.searchHistoryContainer {
+  margin-top: 2rem;
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.searchHistoryItem:hover {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  border-color: var(--primary);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
@@ -357,13 +327,9 @@
     gap: 0.5rem;
   }
 
-  .searchHistoryList {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .searchHistoryItem {
-    justify-content: flex-start;
+  .searchHistoryContainer {
+    margin-top: 1.5rem;
+    border-radius: 0.5rem;
   }
 }
 
@@ -397,6 +363,11 @@
   .noResultsContainer,
   .errorState {
     padding: 2rem 1rem;
+  }
+
+  .searchHistoryContainer {
+    margin-top: 1rem;
+    border-radius: 0.375rem;
   }
 }
 

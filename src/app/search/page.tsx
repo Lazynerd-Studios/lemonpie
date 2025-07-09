@@ -10,6 +10,7 @@ import { FilterPanel } from "@/components/search/filter-panel";
 import { SortDropdown } from "@/components/search/sort-dropdown";
 import { Pagination, usePagination } from "@/components/search/pagination";
 import { SearchNoResults } from "@/components/search/no-results-state";
+import { SearchHistoryUI } from "@/components/search/search-history-ui";
 import { useSearch } from "@/lib/hooks/useSearch";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useSearchState, useFilterState } from "@/lib/stores/searchFilterStore";
@@ -42,7 +43,9 @@ export default function SearchPage() {
     resultCount,
     setQuery,
     clearSearch,
-    suggestions
+    suggestions,
+    removeFromHistory,
+    clearHistory
   } = useSearch({
     enabled: true,
     debounceMs: 300,
@@ -110,6 +113,18 @@ export default function SearchPage() {
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
+
+  // Transform search history for the SearchHistoryUI component
+  const searchHistoryItems = React.useMemo(() => {
+    return searchHistory.map((historyQuery, index) => ({
+      id: `history-${index}`,
+      query: historyQuery,
+      timestamp: Date.now() - (index * 60 * 60 * 1000), // Mock timestamps
+      frequency: Math.max(1, Math.floor(Math.random() * 5)), // Mock frequency
+      isFavorite: false,
+      resultCount: Math.floor(Math.random() * 100) + 1 // Mock result count
+    }));
+  }, [searchHistory]);
 
   return (
     <div className={styles.searchPage}>
@@ -321,22 +336,22 @@ export default function SearchPage() {
             )}
 
             {/* Search History */}
-            {!hasSearched && searchHistory.length > 0 && (
-              <div className={styles.searchHistory}>
-                <h3 className={styles.searchHistoryTitle}>Recent Searches</h3>
-                <div className={styles.searchHistoryList}>
-                  {searchHistory.slice(0, 5).map((historyQuery) => (
-                    <button
-                      key={historyQuery}
-                      className={styles.searchHistoryItem}
-                      onClick={() => setQuery(historyQuery)}
-                    >
-                      <Search className="h-4 w-4" />
-                      {historyQuery}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            {!hasSearched && searchHistoryItems.length > 0 && (
+              <SearchHistoryUI
+                items={searchHistoryItems}
+                variant="compact"
+                groupBy="date"
+                maxItems={10}
+                showActions={true}
+                showFilters={false}
+                showTimestamp={true}
+                showFrequency={true}
+                onItemClick={(item) => setQuery(item.query)}
+                onItemRemove={(item) => removeFromHistory(item.query)}
+                onClearAll={clearHistory}
+                className={styles.searchHistoryContainer}
+                title="Recent Searches"
+              />
             )}
           </div>
         </div>
