@@ -1,0 +1,457 @@
+/* Enhanced Search Bar Styles */
+.searchBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchBar.default {
+  /* Default variant styles */
+}
+
+.searchBar.compact {
+  max-width: 400px;
+}
+
+.searchBar.expanded {
+  max-width: 800px;
+}
+
+.searchBarOpen {
+  z-index: 50;
+}
+
+/* Search Form */
+.searchForm {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.searchInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.searchInput:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  z-index: 10;
+}
+
+.searchInput:focus-within .searchIcon {
+  color: var(--primary);
+}
+
+.searchField {
+  flex: 1;
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.75rem;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.searchField::placeholder {
+  color: var(--muted-foreground);
+}
+
+.loadingIndicator {
+  position: absolute;
+  right: 5rem;
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+}
+
+.clearButton {
+  position: absolute;
+  right: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  color: var(--muted-foreground);
+  border: none;
+  background: transparent;
+  border-radius: 0.25rem;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+  opacity: 1;
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.filterButton {
+  position: absolute;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--muted-foreground);
+  border: none;
+  background: transparent;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+  color: var(--primary);
+  background: var(--muted);
+}
+
+.searchShortcut {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  background: var(--muted);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.searchBarOpen .searchShortcut {
+  opacity: 0;
+}
+
+/* Suggestions Dropdown */
+.suggestionsDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--popover);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 50;
+  animation: slideDown 0.15s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.suggestionsList {
+  padding: 0.5rem 0;
+}
+
+.suggestionSection {
+  margin-bottom: 0.5rem;
+}
+
+.suggestionSection:last-child {
+  margin-bottom: 0;
+}
+
+.suggestionSectionTitle {
+  padding: 0.5rem 0.75rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  border-radius: 0;
+}
+
+.suggestionItem:hover,
+.suggestionItemActive {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.suggestionIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+  flex-shrink: 0;
+}
+
+.suggestionText {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyRemove {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  color: var(--muted-foreground);
+  border: none;
+  background: transparent;
+  border-radius: 0.25rem;
+  opacity: 0;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.suggestionItem:hover .historyRemove {
+  opacity: 1;
+}
+
+.historyRemove:hover {
+  color: var(--destructive);
+  background: var(--destructive-foreground);
+}
+
+/* Suggestion item variants */
+.suggestionItemHistory {
+  /* History item styles */
+}
+
+.suggestionItemSuggestion {
+  /* Suggestion item styles */
+}
+
+/* No suggestions states */
+.noSuggestions,
+.emptySuggestions {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+.noSuggestionsText,
+.emptySuggestionsText {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.searchAnywayButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.clearHistoryButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.clearHistoryButton:hover {
+  color: var(--destructive);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .searchBar {
+    max-width: 100%;
+  }
+  
+  .searchBar.compact {
+    max-width: 100%;
+  }
+  
+  .searchBar.expanded {
+    max-width: 100%;
+  }
+  
+  .searchInput {
+    border-radius: 0.375rem;
+  }
+  
+  .searchField {
+    padding: 0.625rem 0.625rem 0.625rem 2.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .searchIcon {
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  
+  .suggestionsDropdown {
+    margin-top: 0.25rem;
+    border-radius: 0.375rem;
+    max-height: 300px;
+  }
+  
+  .suggestionItem {
+    padding: 0.625rem 0.75rem;
+  }
+  
+  .suggestionText {
+    font-size: 0.875rem;
+  }
+  
+  .searchShortcut {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchField {
+    padding: 0.5rem 0.5rem 0.5rem 2.25rem;
+    font-size: 0.8125rem;
+  }
+  
+  .searchIcon {
+    left: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .clearButton {
+    right: 2.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .filterButton {
+    right: 0.25rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .suggestionItem {
+    padding: 0.5rem 0.625rem;
+  }
+  
+  .suggestionText {
+    font-size: 0.8125rem;
+  }
+  
+  .noSuggestions,
+  .emptySuggestions {
+    padding: 1rem;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .suggestionsDropdown {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+  
+  .searchInput:focus-within {
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .searchInput {
+    border-width: 2px;
+  }
+  
+  .searchInput:focus-within {
+    border-width: 3px;
+  }
+  
+  .suggestionItem:hover,
+  .suggestionItemActive {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .searchInput,
+  .searchIcon,
+  .clearButton,
+  .filterButton,
+  .suggestionItem,
+  .historyRemove {
+    transition: none;
+  }
+  
+  .suggestionsDropdown {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.searchField:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.clearButton:focus,
+.filterButton:focus,
+.searchAnywayButton:focus,
+.clearHistoryButton:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.suggestionItem:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+/* Loading animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingIndicator .animate-spin {
+  animation: spin 1s linear infinite;
+} 

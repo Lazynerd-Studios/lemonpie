@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { EnhancedSearchBar } from "./enhanced-search-bar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -85,8 +86,6 @@ export function EnhancedNavigation({
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-  const [searchOpen, setSearchOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState("");
   const [notificationCount, setNotificationCount] = React.useState(3);
 
   React.useEffect(() => {
@@ -102,28 +101,10 @@ export function EnhancedNavigation({
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  const handleSearchToggle = () => {
-    setSearchOpen(!searchOpen);
-    if (onSearchOpen) {
-      onSearchOpen();
-    }
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // Handle search
-      console.log("Search:", searchQuery);
-      setSearchOpen(false);
-      setSearchQuery("");
-    }
-  };
-
   const navClasses = cn(
     styles.navigation,
     styles[variant],
     scrolled && styles.scrolled,
-    searchOpen && styles.searchOpen,
     className
   );
 
@@ -151,30 +132,16 @@ export function EnhancedNavigation({
 
         {/* Desktop Search */}
         {showSearch && (
-          <div className={cn(styles.searchSection, searchOpen && styles.searchActive)}>
-            <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
-              <div className={styles.searchInput}>
-                <Search className={styles.searchIcon} />
-                <input
-                  type="text"
-                  placeholder="Search movies, actors, reviews..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={styles.searchField}
-                />
-                <div className={styles.searchActions}>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className={styles.searchFilter}
-                  >
-                    <Filter className="h-4 w-4" />
-                  </Button>
-                  <kbd className={styles.searchShortcut}>⌘K</kbd>
-                </div>
-              </div>
-            </form>
+          <div className={styles.searchSection}>
+            <EnhancedSearchBar
+              variant="compact"
+              placeholder="Search movies, actors, reviews..."
+              showHistory={true}
+              showSuggestions={true}
+              showFilters={true}
+              onFilterToggle={() => console.log("Filter toggle")}
+              className={styles.enhancedSearchBar}
+            />
           </div>
         )}
 
@@ -216,7 +183,7 @@ export function EnhancedNavigation({
             <Button
               variant="ghost"
               size="icon"
-              onClick={handleSearchToggle}
+              onClick={() => window.location.href = '/search'}
               className={cn(styles.mobileSearchButton, "lg:hidden")}
             >
               <Search className="h-5 w-5" />

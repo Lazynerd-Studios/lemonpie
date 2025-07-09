@@ -129,11 +129,7 @@
 }
 
 /* Filter Panel */
-.filterPanel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
+.filterPanelContainer {
   margin-bottom: 2rem;
 }
 

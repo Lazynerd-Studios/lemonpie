@@ -1,0 +1,620 @@
+/* Filter Panel Styles */
+.filterPanel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--muted/20);
+}
+
+.filterTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.filterTitleIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--primary);
+}
+
+.filterBadge {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.75rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clearFiltersButton {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+
+.clearFiltersButton:hover:not(:disabled) {
+  color: var(--destructive);
+  border-color: var(--destructive);
+}
+
+.clearFiltersButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.closeButton {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--muted-foreground);
+}
+
+.closeButton:hover {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.filterContent {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Filter Section */
+.filterSection {
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.filterSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--muted/30);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterSectionHeader:hover {
+  background: var(--muted/50);
+}
+
+.filterSectionHeaderOpen {
+  background: var(--muted/50);
+}
+
+.filterSectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.filterSectionIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--primary);
+}
+
+.filterSectionChevron {
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+  transition: transform 0.2s ease;
+}
+
+.filterSectionContent {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  background: var(--background);
+}
+
+/* Genre Filter */
+.genreFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.genreFilterTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.genreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+.genreButton {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.genreButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary/10);
+}
+
+.genreButtonActive {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.genreButtonExclude {
+  border-color: var(--destructive/30);
+  color: var(--destructive);
+}
+
+.genreButtonExclude:hover {
+  border-color: var(--destructive);
+  background: var(--destructive/10);
+}
+
+.genreButtonExcludeActive {
+  border-color: var(--destructive);
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+/* Year Filter */
+.yearFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.yearRange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.yearRangeInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.yearRangeLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.yearInput {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.yearInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.yearQuickFilters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+
+.yearQuickButton {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.yearQuickButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary/10);
+}
+
+/* Rating Filter */
+.ratingFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ratingRange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.ratingRangeInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ratingRangeLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.ratingInput {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.ratingInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.ratingQuickFilters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+
+.ratingQuickButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ratingQuickButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary/10);
+}
+
+/* Duration Filter */
+.durationFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.durationRange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.durationRangeInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.durationRangeLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.durationInput {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.durationInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+/* Language Filter */
+.languageFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.languageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+.languageButton {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.languageButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary/10);
+}
+
+.languageButtonActive {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Special Filter */
+.specialFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.specialOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.specialButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.specialButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary/10);
+}
+
+.specialButtonActive {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filterPanel {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .filterHeader {
+    padding: 0.75rem 1rem;
+  }
+  
+  .filterContent {
+    padding: 0.75rem;
+    max-height: 50vh;
+  }
+  
+  .genreGrid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.375rem;
+  }
+  
+  .yearRange {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .ratingRange {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .durationRange {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .yearQuickFilters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ratingQuickFilters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .languageGrid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .specialOptions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterHeader {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .filterContent {
+    padding: 0.5rem;
+    max-height: 40vh;
+  }
+  
+  .filterSectionHeader {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .filterSectionContent {
+    padding: 0.75rem;
+  }
+  
+  .genreGrid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 0.25rem;
+  }
+  
+  .genreButton {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+  
+  .yearQuickFilters {
+    grid-template-columns: 1fr;
+  }
+  
+  .ratingQuickFilters {
+    grid-template-columns: 1fr;
+  }
+  
+  .languageGrid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filterSectionContent {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Scrollbar styling */
+.filterContent::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.filterContent::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 0.25rem;
+}
+
+.filterContent::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 0.25rem;
+}
+
+.filterContent::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* Focus styles for accessibility */
+.filterSectionHeader:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.genreButton:focus,
+.yearInput:focus,
+.ratingInput:focus,
+.durationInput:focus,
+.languageButton:focus,
+.specialButton:focus,
+.yearQuickButton:focus,
+.ratingQuickButton:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .genreButton,
+  .yearInput,
+  .ratingInput,
+  .durationInput,
+  .languageButton,
+  .specialButton,
+  .yearQuickButton,
+  .ratingQuickButton,
+  .filterSectionHeader,
+  .filterSectionChevron {
+    transition: none;
+  }
+  
+  .filterSectionContent {
+    animation: none;
+  }
+} 

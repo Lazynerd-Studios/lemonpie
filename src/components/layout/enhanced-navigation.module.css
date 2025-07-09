@@ -123,6 +123,10 @@
   display: block;
 }
 
+.enhancedSearchBar {
+  width: 100%;
+}
+
 .searchForm {
   width: 100%;
   position: relative;

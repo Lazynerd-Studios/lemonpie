@@ -6,6 +6,7 @@ import { Search, Filter, SlidersHorizontal, Grid, List, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnhancedMovieCard } from "@/components/movie/enhanced-movie-card";
 import { EnhancedSkeleton } from "@/components/ui/enhanced-skeleton";
+import { FilterPanel } from "@/components/search/filter-panel";
 import { useSearch } from "@/lib/hooks/useSearch";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useSearchState, useFilterState } from "@/lib/stores/searchFilterStore";
@@ -180,56 +181,16 @@ export default function SearchPage() {
         <div className={styles.searchContent}>
           {/* Filter Panel */}
           {showFilters && (
-            <div className={styles.filterPanel}>
-              <div className={styles.filterHeader}>
-                <h3 className={styles.filterTitle}>Filters</h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowFilters(false)}
-                  className={styles.filterClose}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              
-              <div className={styles.filterContent}>
-                <div className={styles.filterSection}>
-                  <h4 className={styles.filterSectionTitle}>Genres</h4>
-                  <div className={styles.filterGrid}>
-                    {/* Genre filters - placeholder for now */}
-                    <div className={styles.filterPlaceholder}>
-                      Genre filters will be implemented in the next step
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.filterSection}>
-                  <h4 className={styles.filterSectionTitle}>Year</h4>
-                  <div className={styles.filterPlaceholder}>
-                    Year range filters will be implemented in the next step
-                  </div>
-                </div>
-
-                <div className={styles.filterSection}>
-                  <h4 className={styles.filterSectionTitle}>Rating</h4>
-                  <div className={styles.filterPlaceholder}>
-                    Rating filters will be implemented in the next step
-                  </div>
-                </div>
-
-                <div className={styles.filterActions}>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={resetFilters}
-                    className={styles.filterReset}
-                  >
-                    Reset Filters
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <FilterPanel
+              movies={movies}
+              isOpen={showFilters}
+              onClose={() => setShowFilters(false)}
+              onFiltersChange={(newFilters) => {
+                // The useFilters hook will handle the filter changes
+                console.log("Filters changed:", newFilters);
+              }}
+              className={styles.filterPanelContainer}
+            />
           )}
 
           {/* Results Area */}
