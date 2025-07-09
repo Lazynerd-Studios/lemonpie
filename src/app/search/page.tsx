@@ -9,6 +9,7 @@ import { EnhancedSkeleton } from "@/components/ui/enhanced-skeleton";
 import { FilterPanel } from "@/components/search/filter-panel";
 import { SortDropdown } from "@/components/search/sort-dropdown";
 import { Pagination, usePagination } from "@/components/search/pagination";
+import { SearchNoResults } from "@/components/search/no-results-state";
 import { useSearch } from "@/lib/hooks/useSearch";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useSearchState, useFilterState } from "@/lib/stores/searchFilterStore";
@@ -270,42 +271,16 @@ export default function SearchPage() {
 
             {/* No Results State */}
             {!isLoading && !isError && hasSearched && allResults.length === 0 && (
-              <div className={styles.noResults}>
-                <div className={styles.noResultsIcon}>
-                  <Search className="h-12 w-12" />
-                </div>
-                <h3 className={styles.noResultsTitle}>No Results Found</h3>
-                <p className={styles.noResultsMessage}>
-                  {query ? (
-                    <>
-                      We couldn't find any movies matching <strong>"{query}"</strong>
-                      {activeFiltersCount > 0 && " with the current filters"}
-                    </>
-                  ) : (
-                    "No movies match your current filters"
-                  )}
-                </p>
-                <div className={styles.noResultsActions}>
-                  {query && (
-                    <Button
-                      variant="outline"
-                      onClick={clearSearch}
-                      className={styles.noResultsButton}
-                    >
-                      Clear Search
-                    </Button>
-                  )}
-                  {activeFiltersCount > 0 && (
-                    <Button
-                      variant="outline"
-                      onClick={clearFilters}
-                      className={styles.noResultsButton}
-                    >
-                      Clear Filters
-                    </Button>
-                  )}
-                </div>
-              </div>
+              <SearchNoResults
+                query={query}
+                filterCount={activeFiltersCount}
+                onClearSearch={clearSearch}
+                onClearFilters={clearFilters}
+                onClearAll={handleClearAll}
+                suggestions={suggestions.slice(0, 5)}
+                onSuggestionClick={setQuery}
+                className={styles.noResultsContainer}
+              />
             )}
 
             {/* Search Results */}
