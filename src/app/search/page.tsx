@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, Filter, SlidersHorizontal, Grid, List, X } from "lucide-react";
+import { Search, SlidersHorizontal, Grid, List, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnhancedMovieCard } from "@/components/movie/enhanced-movie-card";
 import { EnhancedSkeleton } from "@/components/ui/enhanced-skeleton";
@@ -13,7 +13,7 @@ import { SearchNoResults } from "@/components/search/no-results-state";
 import { SearchHistoryUI } from "@/components/search/search-history-ui";
 import { useSearch } from "@/lib/hooks/useSearch";
 import { useFilters } from "@/lib/hooks/useFilters";
-import { useSearchState, useFilterState } from "@/lib/stores/searchFilterStore";
+
 import { movieData } from "@/data/movies";
 import { cn } from "@/lib/utils";
 import styles from "./search.module.css";
@@ -27,25 +27,18 @@ export default function SearchPage() {
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
   const [showFilters, setShowFilters] = React.useState(false);
   
-  const { search: searchState } = useSearchState();
-  const { filters: filterState } = useFilterState();
-  
   const {
     query,
     movies: searchResults,
     isLoading,
     isError,
     error,
-    isEmpty,
     isDebouncing,
     hasSearched,
     searchHistory,
-    resultCount,
     setQuery,
     clearSearch,
-    suggestions,
-    removeFromHistory,
-    clearHistory
+    suggestions
   } = useSearch({
     enabled: true,
     debounceMs: 300,
@@ -57,11 +50,8 @@ export default function SearchPage() {
 
   const {
     filters,
-    filteredMovies,
     activeFiltersCount,
-    hasActiveFilters,
     clearFilters,
-    resetFilters,
     applyFilters,
     setSortBy,
     setSortOrder
@@ -83,7 +73,7 @@ export default function SearchPage() {
     
     const results = searchResults.length > 0 ? searchResults : movies;
     return applyFilters(results);
-  }, [searchResults, movies, applyFilters, hasSearched]);
+  }, [searchResults, applyFilters, hasSearched]);
 
   // Pagination logic
   const {
@@ -138,7 +128,7 @@ export default function SearchPage() {
                   Search Results
                   {query && (
                     <span className={styles.searchQuery}>
-                      for "{query}"
+                      for &quot;{query}&quot;
                     </span>
                   )}
                 </>

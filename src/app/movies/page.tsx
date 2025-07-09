@@ -454,7 +454,7 @@ export default function MoviesPage() {
     setDisplayedMovies(newMovies);
     setCurrentPage(nextPage);
     setIsLoadingMore(false);
-  }, [isLoadingMore, displayedMovies.length, allFilteredMovies.length, currentPage, allFilteredMovies]);
+  }, [isLoadingMore, displayedMovies.length, currentPage, allFilteredMovies]);
 
   // Infinite scroll implementation
   React.useEffect(() => {
@@ -658,7 +658,7 @@ export default function MoviesPage() {
           <div className="text-center mt-8 py-8">
             <div className="inline-flex items-center space-x-2 text-muted-foreground">
               <div className="h-px bg-border flex-1 w-20"></div>
-              <span className="text-sm">You've reached the end</span>
+              <span className="text-sm">You&apos;ve reached the end</span>
               <div className="h-px bg-border flex-1 w-20"></div>
             </div>
           </div>

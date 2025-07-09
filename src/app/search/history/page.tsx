@@ -5,8 +5,22 @@ import { SearchHistoryUI } from "@/components/search/search-history-ui";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 import styles from "./history.module.css";
+
+// Search history item type
+interface SearchHistoryItem {
+  id: string;
+  query: string;
+  timestamp: number;
+  frequency: number;
+  isFavorite: boolean;
+  filters?: {
+    genres?: string[];
+    year?: number;
+    rating?: number;
+  };
+  resultCount: number;
+}
 
 // Mock search history data
 const mockSearchHistory = [
@@ -120,15 +134,15 @@ export default function SearchHistoryPage() {
   const [groupBy, setGroupBy] = React.useState<"date" | "frequency" | "none">("date");
   const [showFavorites, setShowFavorites] = React.useState(false);
 
-  const handleItemClick = (item: any) => {
+  const handleItemClick = (item: SearchHistoryItem) => {
     router.push(`/search?q=${encodeURIComponent(item.query)}`);
   };
 
-  const handleItemRemove = (item: any) => {
+  const handleItemRemove = (item: SearchHistoryItem) => {
     setItems(prev => prev.filter(i => i.id !== item.id));
   };
 
-  const handleItemFavorite = (item: any) => {
+  const handleItemFavorite = (item: SearchHistoryItem) => {
     setItems(prev => prev.map(i => 
       i.id === item.id 
         ? { ...i, isFavorite: !i.isFavorite }
