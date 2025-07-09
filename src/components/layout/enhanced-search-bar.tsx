@@ -7,20 +7,26 @@ import {
   Filter, 
   X, 
   Clock, 
-  TrendingUp, 
-  Film, 
-  User, 
-  Star,
-  ChevronDown,
   Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useSearch, useSearchSuggestions } from "@/lib/hooks/useSearch";
-import { useSearchState } from "@/lib/stores/searchFilterStore";
 // import { useClickOutside } from "@/lib/hooks/useClickOutside";
 import styles from "./enhanced-search-bar.module.css";
+
+// Define suggestion item type
+interface SuggestionItem {
+  type: 'history' | 'suggestion';
+  text: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+interface SuggestionSection {
+  type: 'section';
+  title: string;
+  items: SuggestionItem[];
+}
 
 interface EnhancedSearchBarProps {
   className?: string;
@@ -53,8 +59,6 @@ export function EnhancedSearchBar({
   const searchRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   
-  const { search: searchState } = useSearchState();
-  
   const {
     query,
     setQuery,
@@ -70,7 +74,7 @@ export function EnhancedSearchBar({
     saveToHistory: true
   });
 
-  const { suggestions, isLoading: suggestionsLoading } = useSearchSuggestions(query);
+  const { suggestions } = useSearchSuggestions(query);
 
   // Close dropdown when clicking outside
   useClickOutside(searchRef, () => {
@@ -114,7 +118,7 @@ export function EnhancedSearchBar({
 
   // Get all suggestions (history + search suggestions)
   const allSuggestions = React.useMemo(() => {
-    const items = [];
+    const items: SuggestionSection[] = [];
     
     // Add recent searches
     if (showHistory && searchHistory.length > 0) {
@@ -204,7 +208,7 @@ export function EnhancedSearchBar({
   }, [autoFocus]);
 
   // Render suggestion item
-  const renderSuggestionItem = (item: any, index: number, isActive: boolean) => {
+  const renderSuggestionItem = (item: SuggestionItem, index: number, isActive: boolean) => {
     const Icon = item.icon;
     
     return (
@@ -321,7 +325,7 @@ export function EnhancedSearchBar({
           ) : query ? (
             <div className={styles.noSuggestions}>
               <div className={styles.noSuggestionsText}>
-                No suggestions found for "{query}"
+                No suggestions found for &quot;{query}&quot;
               </div>
               <Button
                 variant="outline"

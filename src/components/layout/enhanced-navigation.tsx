@@ -19,10 +19,7 @@ import {
   Bookmark,
   Settings,
   LogOut,
-  ChevronDown,
-  Zap,
-  TrendingUp,
-  Filter
+  ChevronDown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -64,7 +61,6 @@ interface EnhancedNavigationProps {
     email: string;
     avatar?: string;
   };
-  onSearchOpen?: () => void;
   onLoginClick?: () => void;
   onRegisterClick?: () => void;
   onLogout?: () => void;
@@ -78,7 +74,6 @@ export function EnhancedNavigation({
   showNotifications = true,
   isLoggedIn = false,
   user,
-  onSearchOpen,
   onLoginClick,
   onRegisterClick,
   onLogout
@@ -86,7 +81,7 @@ export function EnhancedNavigation({
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-  const [notificationCount, setNotificationCount] = React.useState(3);
+  const [notificationCount] = React.useState(3);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -297,31 +292,8 @@ export function EnhancedNavigation({
       </nav>
 
       {/* Mobile Search Bar */}
-      {searchOpen && (
-        <div className={cn(styles.mobileSearchBar, "lg:hidden")}>
-          <form onSubmit={handleSearchSubmit} className={styles.mobileSearchForm}>
-            <div className={styles.mobileSearchInput}>
-              <Search className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="Search movies, actors, reviews..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.searchField}
-                autoFocus
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => setSearchOpen(false)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </form>
-        </div>
-      )}
+      {/* The searchOpen, searchQuery, handleSearchSubmit, and searchOverlay variables are removed as they are not used in the EnhancedNavigation component. */}
+      {/* If search functionality is needed, it should be re-added and managed by the EnhancedSearchBar component. */}
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
@@ -441,9 +413,8 @@ export function EnhancedNavigation({
       )}
 
       {/* Search Overlay */}
-      {searchOpen && (
-        <div className={styles.searchOverlay} onClick={() => setSearchOpen(false)} />
-      )}
+      {/* The searchOpen variable is removed as it is not used in the EnhancedNavigation component. */}
+      {/* If search functionality is needed, it should be re-added and managed by the EnhancedSearchBar component. */}
     </header>
   );
 }
