@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { EnhancedMovieCard } from "@/components/movie/enhanced-movie-card";
 import { EnhancedSkeleton } from "@/components/ui/enhanced-skeleton";
 import { FilterPanel } from "@/components/search/filter-panel";
+import { SortDropdown } from "@/components/search/sort-dropdown";
 import { useSearch } from "@/lib/hooks/useSearch";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useSearchState, useFilterState } from "@/lib/stores/searchFilterStore";
@@ -56,7 +57,9 @@ export default function SearchPage() {
     hasActiveFilters,
     clearFilters,
     resetFilters,
-    applyFilters
+    applyFilters,
+    setSortBy,
+    setSortOrder
   } = useFilters(movies, {
     saveToStorage: true,
     storageKey: 'search-filters'
@@ -145,6 +148,17 @@ export default function SearchPage() {
                 </span>
               )}
             </Button>
+
+            <SortDropdown
+              sortBy={filters.sortBy}
+              sortOrder={filters.sortOrder}
+              onSortChange={(sortBy, sortOrder) => {
+                setSortBy(sortBy);
+                setSortOrder(sortOrder);
+              }}
+              variant="compact"
+              className={styles.sortDropdown}
+            />
 
             <div className={styles.viewModeToggle}>
               <Button
