@@ -8,6 +8,7 @@ import { EnhancedMovieCard } from "@/components/movie/enhanced-movie-card";
 import { EnhancedSkeleton } from "@/components/ui/enhanced-skeleton";
 import { FilterPanel } from "@/components/search/filter-panel";
 import { SortDropdown } from "@/components/search/sort-dropdown";
+import { Pagination, usePagination } from "@/components/search/pagination";
 import { useSearch } from "@/lib/hooks/useSearch";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useSearchState, useFilterState } from "@/lib/stores/searchFilterStore";
@@ -73,16 +74,36 @@ export default function SearchPage() {
   }, [initialQuery, query, setQuery]);
 
   // Apply filters to search results
-  const finalResults = React.useMemo(() => {
+  const allResults = React.useMemo(() => {
     if (!hasSearched) return [];
     
     const results = searchResults.length > 0 ? searchResults : movies;
     return applyFilters(results);
   }, [searchResults, movies, applyFilters, hasSearched]);
 
+  // Pagination logic
+  const {
+    currentPage,
+    itemsPerPage,
+    totalPages,
+    handlePageChange,
+    handleItemsPerPageChange,
+    paginateItems
+  } = usePagination({
+    totalItems: allResults.length,
+    itemsPerPage: 20,
+    currentPage: 1
+  });
+
+  // Get current page results
+  const finalResults = React.useMemo(() => {
+    return paginateItems(allResults);
+  }, [allResults, paginateItems]);
+
   const handleClearAll = () => {
     clearSearch();
     clearFilters();
+    handlePageChange(1); // Reset to first page
   };
 
   const toggleFilters = () => {
@@ -114,7 +135,12 @@ export default function SearchPage() {
                 <span className={styles.loadingText}>Searching...</span>
               ) : hasSearched ? (
                 <span className={styles.resultCount}>
-                  {finalResults.length} {finalResults.length === 1 ? 'result' : 'results'}
+                  {allResults.length} {allResults.length === 1 ? 'result' : 'results'}
+                  {allResults.length > 0 && totalPages > 1 && (
+                    <span className={styles.pageInfo}>
+                      • Page {currentPage} of {totalPages}
+                    </span>
+                  )}
                   {activeFiltersCount > 0 && (
                     <span className={styles.filterCount}>
                       • {activeFiltersCount} filter{activeFiltersCount === 1 ? '' : 's'} applied
@@ -243,7 +269,7 @@ export default function SearchPage() {
             )}
 
             {/* No Results State */}
-            {!isLoading && !isError && hasSearched && finalResults.length === 0 && (
+            {!isLoading && !isError && hasSearched && allResults.length === 0 && (
               <div className={styles.noResults}>
                 <div className={styles.noResultsIcon}>
                   <Search className="h-12 w-12" />
@@ -283,21 +309,40 @@ export default function SearchPage() {
             )}
 
             {/* Search Results */}
-            {!isLoading && !isError && finalResults.length > 0 && (
-              <div className={cn(
-                styles.resultsGrid,
-                viewMode === "list" && styles.resultsGridList
-              )}>
-                {finalResults.map((movie) => (
-                  <EnhancedMovieCard
-                    key={movie.id}
-                    movie={movie}
-                    variant={viewMode === "list" ? "horizontal" : "vertical"}
-                    showActions={true}
-                    className={styles.movieCard}
+            {!isLoading && !isError && allResults.length > 0 && (
+              <>
+                <div className={cn(
+                  styles.resultsGrid,
+                  viewMode === "list" && styles.resultsGridList
+                )}>
+                  {finalResults.map((movie) => (
+                    <EnhancedMovieCard
+                      key={movie.id}
+                      movie={movie}
+                      variant={viewMode === "list" ? "horizontal" : "vertical"}
+                      showActions={true}
+                      className={styles.movieCard}
+                    />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    totalItems={allResults.length}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange}
+                    showItemsPerPage={true}
+                    showPageInfo={true}
+                    showFirstLast={true}
+                    variant="default"
+                    className={styles.pagination}
                   />
-                ))}
-              </div>
+                )}
+              </>
             )}
 
             {/* Search History */}

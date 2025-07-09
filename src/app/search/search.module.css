@@ -474,4 +474,33 @@
 
 .loadingText {
   animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pageInfo {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+/* Responsive pagination adjustments */
+@media (max-width: 768px) {
+  .pagination {
+    margin-top: 1.5rem;
+    border-radius: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    margin-top: 1rem;
+    border-radius: 0.375rem;
+  }
 } 
